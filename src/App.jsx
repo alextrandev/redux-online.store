@@ -1,26 +1,21 @@
-import { Button } from "react-bootstrap"
-import { useAppDispatch, useAppSelector } from "./hooks/hooks";
-import { useEffect } from "react";
-import { fetchProducts } from "./store/productSlice";
-import ProductCard from "./components/productCard";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import List from "./components/List";
+import Cart from "./components/Cart";
+import StoreNavBar from "./components/StoreNavBar";
 
 function App() {
 
-  const products = useAppSelector(state => state.products.products);
-  console.log(products);
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(fetchProducts())
-  }, [dispatch]);
-
   return (
-    <div className="">
-      {products.map(product => (
-        <ProductCard product={product} />
-      ))}
+    <div>
+      <BrowserRouter>
+        <StoreNavBar />
+        <Routes>
+          <Route path="/" element={<List />} />
+          <Route path="/cart" element={<Cart />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   )
 }
 
-export default App
+export default App;
