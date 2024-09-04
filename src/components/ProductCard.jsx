@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { Image, Button, Card, Container } from 'react-bootstrap';
-import { useAppDispatch } from '../hooks/hooks';
-import { addToCart } from '../store/productSlice';
+import { useAppDispatch, useAppSelector } from '../hooks/hooks';
+import { addToCart, removeFromCart } from '../store/productSlice';
 
 function ProductCard({ product }) {
+  const cart = useAppSelector(state => state.products.cart);
   const { id, title, price, description, image } = product;
   const [isExpanded, setIsExpanded] = useState(false);
   const dispatch = useAppDispatch();
+  // console.log(cart);
 
   const toggleDescription = () => {
     setIsExpanded(!isExpanded);
@@ -38,6 +40,12 @@ function ProductCard({ product }) {
           )}
         </Card.Text>
         <Button variant="primary" onClick={() => dispatch(addToCart(product))}>{price} €</Button>
+
+        {/* Remove form cart button */}
+        {cart.includes(product) &&
+          <Button variant="warning" onClick={() => dispatch(removeFromCart(product))}>Remove from cart</Button>
+        }
+
       </Card.Body>
     </Card>
   );

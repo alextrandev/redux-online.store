@@ -20,6 +20,10 @@ export const productSlice = createSlice({
   reducers: {
     addToCart: (state, action) => {
       state.cart = [...state.cart, action.payload]
+    },
+    removeFromCart: (state, action) => {
+      console.log(state.cart);
+      state.cart = state.cart.filter(product => product.id !== action.payload.id);
     }
   },
   // extra reducer are for async calls
@@ -32,6 +36,6 @@ export const productSlice = createSlice({
   },
 });
 
-export const {addToCart} = productSlice.actions;
+export const {addToCart, removeFromCart} = productSlice.actions;
 
 export default productSlice.reducer;
