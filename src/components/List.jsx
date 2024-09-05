@@ -14,14 +14,14 @@ function List() {
   }, [dispatch]);
 
   return (
-    <div>
+    <Container>
       <h1>Products List</h1>
-      {products.map(product => (
-        <Container key={product.id}>
-          <ProductCard product={product} />
-        </Container>
-      ))}
-    </div>
+      <Container style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: '2rem' }}>
+        {products.map(product => (
+          <ProductCard product={product} key={product.id} />
+        ))}
+      </Container>
+    </Container>
   )
 }
 
